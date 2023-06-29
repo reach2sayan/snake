@@ -2,6 +2,7 @@
 #include "food.hpp"
 #include "snake.hpp"
 #include <unistd.h>
+#include <string>
 
 
 char isUserReady() {return 'y'; }
@@ -19,8 +20,10 @@ int main(){
 		Food foodObj = Food(width, height, snakeObj);
 		screenObj.DrawWindow();
 
+		int score = 0;
 		while(!screenObj.Quit()){
 
+			screenObj.PrintScore(score);
 			if (snakeObj.FatalCollision()){
 				move((height-2)/2, (width-2/2));
 				printw("GAME OVER...");
@@ -28,11 +31,17 @@ int main(){
 			else{
 
 				snakeObj.checkEatingSuccess(foodObj, screenObj);
+				if (snakeObj.getEatingSuccess())
+					score++;
+				screenObj.PrintScore(score);
 				screenObj.PositionFood(foodObj);
 				screenObj.MoveAndDrawSnake(snakeObj);
+				if(snakeObj.getEatingSuccess()){
+					foodObj.UpdateFood(height, width, snakeObj);
+					snakeObj.setEatingSuccess(false);
+				}
 
-
-				usleep(1000000);
+				usleep(500000);
 
 			}
 		}while(AskUserToPlayAgain() == 'y');

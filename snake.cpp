@@ -24,12 +24,11 @@ void Snake::checkEatingSuccess(Food& foodObj, const ScreenObject& screenObj){
 	int height = screenObj.get_height();
 	int width = screenObj.get_width();
 	Position foodPos = foodObj.GetFood();
-	if (snake[0].getX() == foodPos.getX() && 
-			snake[0].getY() == foodPos.getY()){
-
-		foodObj.UpdateFood(height, width, *this);
+	//auto message = std::to_string(snake.front().getX()) + " " + std::to_string(foodPos.getX());
+	//screenObj.PrintMessage(message);
+	if (snake.front().getX() == foodPos.getX() && 
+			snake.front().getY() == foodPos.getY())
 		bEatsFruit = true;
-	}
 	else
 		bEatsFruit = false;
 }

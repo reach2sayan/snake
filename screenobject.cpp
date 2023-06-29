@@ -1,6 +1,7 @@
 #include "snake.hpp"
 #include "food.hpp"
 #include "screenobject.hpp"
+#include <string>
 
 ScreenObject::ScreenObject(){
 	initscr();
@@ -78,6 +79,7 @@ void ScreenObject::MoveAndDrawSnake(Snake& snakeObj) {
 		case KEY_DOWN:
 			if (snakeObj.getDirection() != TOP)
 				snakeObj.setDirection(BOTTOM);
+			break;
 		case KEY_BACKSPACE:
 			quitGame = true;
 			break;
@@ -106,7 +108,7 @@ void ScreenObject::MoveAndDrawSnake(Snake& snakeObj) {
 		snake.insert(snake.begin(), Position(snake[0].getX(), snake[0].getY()+1, height, width));
 
 	// move to the new CharPosition coordinates
-	move(snake[0].getY(), snake[0].getX());
+	move(snake.front().getY(), snake.front().getX());
 	addch(snakechar); // add a new head
 	refresh();
 	return;
@@ -114,7 +116,7 @@ void ScreenObject::MoveAndDrawSnake(Snake& snakeObj) {
 
 void ScreenObject::PositionFood(Food& foodObj) const {
 	Position food = foodObj.GetFood();
-	move(food.getY(), food.getY());
+	move(food.getY(), food.getX());
 	addch(foodchar);
 	refresh();
 }
@@ -123,6 +125,12 @@ void ScreenObject::PositionFood(Food& foodObj) const {
 void ScreenObject::PrintScore(const int score) const {
 	move(height-1, 0);
 	printw("Score: %d", score);
+	return;
+}
+
+void ScreenObject::PrintMessage(const std::string& score) const {
+	move(height-1, 0);
+	printw("Message : %s", &score[0]);
 	return;
 }
 

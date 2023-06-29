@@ -2,6 +2,7 @@
 #define __SCREEN_H
 
 #include <ncurses.h>
+#include <string>
 
 class Snake;
 class Food;
@@ -27,6 +28,7 @@ class ScreenObject{
 		void MoveAndDrawSnake(Snake& snakeObj);
 		bool EatingSuccess(Food& food, Snake& snakeObj) const;
 		void PrintScore(const int score) const;
+		void PrintMessage(const std::string& score) const;
 		bool Quit() const {return quitGame;}
 };
 #endif

@@ -20,7 +20,7 @@ Food::Food(int width, int height, Snake& snakeObj){
 			continue; // if true, ignore the following and go back to the beginning of function
 
 		// if the coordinates are valid, add fruit in the window
-		food = Position(x,y,height,width);
+		food = Position(y,x,height,width);
 		break;
 	};
 }
